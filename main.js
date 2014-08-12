@@ -1,3 +1,11 @@
+var Module = {
+    noInitialRun : true,
+    'print': function(text) {
+        var element = document.getElementById('log');
+        element.innerHTML += text.replace('\n', '<br>', 'g') + '<br>';
+    }
+};
+
 function focusAndSelect(input) {
     input.focus();
     setTimeout(function(){ input.select(); }, 0)

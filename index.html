@@ -49,6 +49,7 @@ table.sudoku td.given {
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="minisat.js"></script>
 <title>Sudoku solver in your browser</title>
 </head>
 
@@ -168,17 +169,6 @@ table.sudoku td.given {
   <button id="clear">Clear</button>
   <button id="load-sample">Load Sample</button>
 </div>
-
-<script type="text/javascript">
-var Module = {
-    noInitialRun : true,
-    'print': function(text) {
-        var element = document.getElementById('log');
-        element.innerHTML += text.replace('\n', '&lt;br&gt;', 'g') + '&lt;br&gt;';
-    }
-};
-</script>
-<script type="text/javascript" src="minisat.js"></script>
 
 <h2>Result</h2>
 
