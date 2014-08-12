@@ -249,7 +249,7 @@ void exactlyOne(Solver& S, vec<Lit>& ps)
     }
 }
 
-const char* htmlstuff(const char* sudokudata)
+const char* sudoku(const char* sudokudata)
 {
     Solver      S;
     S.verbosity = 1;
@@ -382,14 +382,14 @@ const char* htmlstuff(const char* sudokudata)
     }
 }
 
-
+#if 0
 int main(int argc, char** argv)
 {
     Solver      S;
     S.verbosity = 1;
 
 
-    /*int         i, j;
+    int         i, j;
     const char* value;
     for (i = j = 0; i < argc; i++){
         if ((value = hasPrefix(argv[i], "-polarity-mode="))){
@@ -436,8 +436,6 @@ int main(int argc, char** argv)
             argv[j++] = argv[i];
     }
     argc = j;
-    */
-
 
     reportf("This is MiniSat 2.0 beta\n");
 #if defined(__linux__)
@@ -479,11 +477,12 @@ int main(int argc, char** argv)
 
     return (ret ? 10 : 20);     // (faster than "return", which will invoke the destructor for 'Solver')
 }
+#endif
 
 extern "C" {
 
-const char* htmlstuff_c(const char* sudokudata) {
-  return htmlstuff(sudokudata);
+const char* sudoku_c(const char* sudokudata) {
+  return sudoku(sudokudata);
 }
 
 }

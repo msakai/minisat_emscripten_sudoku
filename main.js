@@ -115,12 +115,12 @@ $(document).ready(function(){
     }
     
     $("#solve").click(function() {
-	htmlstuff = Module.cwrap('htmlstuff_c', 'string', ['string']);
+	sudoku = Module.cwrap('sudoku_c', 'string', ['string']);
 
 	var input_str = getInputString();
 	console.log(input_str)
 
-	var output_str = htmlstuff(input_str);
+	var output_str = sudoku(input_str);
 	console.log(output_str);
 
 	if (output_str != "") {
