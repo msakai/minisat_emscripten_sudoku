@@ -281,10 +281,11 @@ const char* htmlstuff(const char* sudokudata)
     }
 
     // given digits
+    puts("---------");
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
             char c = sudokudata[i*9+j];
-            printf("[%c]", c);
+            putchar(c);
             if ('1' <= c && c <= '9') {
                 vec<Lit> clause;
                 clause.push(Lit(vars[i][j][c - '1']));
@@ -293,6 +294,7 @@ const char* htmlstuff(const char* sudokudata)
         }
         putchar('\n');
     }
+    puts("---------");
 
     // each cell should contain exactly one digit
     for (int i = 0; i < 9; i++) {
@@ -357,6 +359,7 @@ const char* htmlstuff(const char* sudokudata)
 
         static char result[82];
         result[81] = NULL;
+        puts("---------");
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 char c = ' ';
@@ -367,10 +370,11 @@ const char* htmlstuff(const char* sudokudata)
                     }
                 }
                 result[i*9+j] = c;
-                printf("[%c]", c);
+                putchar(c);
             }
             putchar('\n');
         }
+        puts("---------");
         return result;
     }else {
         printf("UNSAT\n");
