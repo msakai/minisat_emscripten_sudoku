@@ -2,16 +2,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <style>
-#output
+#log
 {
     padding: 1px;           /*To make sure that the input and the label will not overlap the border, If you remove this line it will not display correctly on Opera 15.0*/
     border: 1px solid activeborder; /*Create our fake border :D*/
     background-color: black;
-    font-family:monospace;
+    font-family: monospace;
     color: white;
+}
+
+table.sudoku {
+  border-collapse: collapse;
+}
+
+table.sudoku colgroup {
+  border-left: solid 2px; border-right: solid 2px;
+}
+
+table.sudoku tr.top {
+  border-top: solid 2px;
+}
+
+table.sudoku tr.bot {
+  border-bottom: solid 2px;
+}
+
+table.sudoku td {
+  width: 1em;
+  height: 1em;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 0px;
+}
+
+table.sudoku input {
+  border: none;
+  width: 1em;
+  padding: 0px;
+}
+
+table.sudoku td.given {
+  font-weight: bold;
 }
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
 <title>Sudoku solver in your browser</title>
 </head>
 
@@ -19,62 +55,242 @@
 
 <h1>Sudoku solver in your browser</h1>
 
-<textarea rows="20" cols="50" id="input">
-1__6__8__
-_2__7__9_
-__3__8__1
-2__4__9__
-_3__5__1_
-__4__6__2
-3__5__7__
-_4__6__8_
-__5__7__4
-</textarea>
+<table class="sudoku" id="input">
+  <colgroup span="3">
+  <colgroup span="3">
+  <colgroup span="3">
 
-<br>
+  <tr class="top">
+    <td><input type="text" value="1" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+  </tr>
+  <tr>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+  </tr>
+  <tr class="bot">
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+  </tr>
+
+  <tr class="top">
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+  </tr>
+  <tr>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+  </tr>
+  <tr class="bot">
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+  </tr>
+
+  <tr class="top">
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+  </tr>
+  <tr>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+  </tr>
+  <tr class="bot">
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+    <td><input type="text" maxlength="1"></td>
+  </tr>
+</table>
+
+<button id="solve">Solve!</button>
+<button id="clear">Clear</button>
+<button id="load-sample">Load Sample</button>
 
 <script>
 var Module = {
     noInitialRun : true,
     'print': function(text) {
-        var element = document.getElementById('output');
+        var element = document.getElementById('log');
         element.innerHTML += text.replace('\n', '<br>', 'g') + '<br>';
         //console.log(text);
     }
 };
 </script>
-<script type='text/javascript' src="minisat.js"></script>
-<button id="solve">Solve!</button>
-
-<script type='text/javascript'>
-$("#solve").click(function() {
-    var element = document.getElementById('output');
-    element.innerHTML = ""
-
-    //htmlstuff = Module.cwrap('htmlstuff_c', 'int', ['string']);
-    htmlstuff = Module.cwrap('htmlstuff_c', 'string', ['string']);
-
-    var input_str = document.getElementById("input").value.replace(/\s/g, "")
-    console.log(input_str)
-    var result_str = htmlstuff(input_str);
-    console.log(result_str)
-
-    var result = $("#result");
-    result.empty();
-    if (result != "") {
-        for (var i = 0; i < 9; i++) {        
-            result.append(document.createTextNode(result_str.substr(i*9,9)))
-            result.append(document.createElement("br"))
-        }
-    }
-});
-</script>
+<script type="text/javascript" src="minisat.js"></script>
 
 <h2>Result</h2>
-<div id="result"></div>
+
+<table class="sudoku" id="output">
+  <colgroup span="3">
+  <colgroup span="3">
+  <colgroup span="3">
+
+  <tr class="top">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr class="bot">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  <tr class="top">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr class="bot">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  <tr class="top">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr class="bot">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
 
 <h2>Log</h2>
-<div id="output"></div>
+<div id="log"></div>
 
 <hr>
 
