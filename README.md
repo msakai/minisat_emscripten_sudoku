@@ -22,3 +22,5 @@ References
 * [MiniSat](http://minisat.se/).
 * [emscripten](http://kripken.github.io/emscripten-site/).
 * Mate Soos. “[MiniSat in your browser](http://www.msoos.org/2013/09/minisat-in-your-browser/)”
+* I. Lynce, and J. Ouaknine. “[Sudoku as a SAT Problem](http://sat.inesc-id.pt/~ines/publications/aimath06.pdf)”. Proceedings of the Ninth International Symposium on Artificial Intelligence and Mathematics (AIMATH 2006), Jan. 2006.
+* Yusuke Endoh. “[SAT ソルバで数独を解く方法 - まめめも](http://d.hatena.ne.jp/ku-ma-me/20080108/p1)”. 
