@@ -144,6 +144,24 @@ $(document).ready(function(){
         setInputString(sampleInput)
     })
 
+    function dumpToTextArea(str) {
+        var s = ""
+        for (var i = 0; i < 9; i++) {
+            s += str.substr(i*9, 9) + "\n"
+        }
+        $("#textarea")[0].value = s
+    }
+
+    dumpToTextArea(sampleInput)
+
+    $("#load-from-textarea").click(function() {
+        setInputString($("#textarea")[0].value.replace(/#.*/g, '').replace(/\s+/g,''))
+    })
+
+    $("#save-to-textarea").click(function() {
+        dumpToTextArea(getInputString())
+    })
+
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
             (function(i,j) {
