@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Sudoku,数独,Number Placement,ナンプレ" />
+<style type="text/css">
+#log
+{
+    padding: 1px;           /*To make sure that the input and the label will not overlap the border, If you remove this line it will not display correctly on Opera 15.0*/
+    border: 1px solid activeborder; /*Create our fake border :D*/
+    background-color: black;
+    font-family: monospace;
+    color: white;
+}
+
+table.sudoku {
+  border-collapse: collapse;
+}
+
+table.sudoku colgroup {
+  border-left: solid 2px; border-right: solid 2px;
+}
+
+table.sudoku tr.top {
+  border-top: solid 2px;
+}
+
+table.sudoku tr.bot {
+  border-bottom: solid 2px;
+}
+
+table.sudoku td {
+  width: 1em;
+  height: 1em;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 0px;
+}
+
+table.sudoku input {
+  border: none;
+  width: 1em;
+  padding: 0px;
+}
+
+table.sudoku td.given {
+  font-weight: bold;
+}
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="minisat.js"></script>
+<title>Sudoku solver in your browser</title>
+</head>
+
+<body>
+
+<h1>Sudoku solver in your browser</h1>
+<p>
+On this page, you can solve a famous number-placement puzzle <a href="https://en.wikipedia.org/wiki/Sudoku">Sudoku (数独)</a> using only client-side Javascript.
+</p>
+
+<table class="sudoku" id="input">
+  <colgroup span="3" />
+  <colgroup span="3" />
+  <colgroup span="3" />
+
+  <tr class="top">
+    <td><input type="text" value="1" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+  </tr>
+  <tr>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+  </tr>
+  <tr class="bot">
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+  </tr>
+
+  <tr class="top">
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+  </tr>
+  <tr>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+  </tr>
+  <tr class="bot">
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+  </tr>
+
+  <tr class="top">
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+  </tr>
+  <tr>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+  </tr>
+  <tr class="bot">
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+    <td><input type="text" maxlength="1" /></td>
+  </tr>
+</table>
+<div>
+  <button id="solve">Solve!</button>
+  <button id="clear">Clear</button>
+  <button id="load-sample">Load Sample</button>
+</div>
+
+<h2>Load from text area / Save to text area</h2>
+<div>
+<textarea id="textarea" cols="12" rows="12"></textarea>
+<br />
+<button id="load-from-textarea">Load from textarea</button>
+<button id="save-to-textarea">Save to textarea</button>
+</div>
+
+<h2>Result</h2>
+
+<table class="sudoku" id="output">
+  <colgroup span="3" />
+  <colgroup span="3" />
+  <colgroup span="3" />
+
+  <tr class="top">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr class="bot">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  <tr class="top">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr class="bot">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  <tr class="top">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr class="bot">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
+<h2>Log</h2>
+<div id="log"></div>
+
+<h2>References and Acknowledgements</h2>
+<ul>
+<li><a href="https://github.com/msakai/minisat_emscripten_sudoku">Source code</a> (github)</li>
+<li>Powered by <a href="http://minisat.se/">MiniSat</a> and <a href="http://kripken.github.io/emscripten-site/">emscripten</a>.</li>
+<li>Special thanks to Mate Soos for writing “<a href="http://www.msoos.org/2013/09/minisat-in-your-browser/">MiniSat in your browser</a>”.</li>
+<li>I. Lynce, and J. Ouaknine. “<a href="http://sat.inesc-id.pt/~ines/publications/aimath06.pdf">Sudoku as a SAT Problem</a>”. Proceedings of the Ninth International Symposium on Artificial Intelligence and Mathematics (AIMATH 2006), Jan. 2006.</li>
+<li>Yusuke Endoh. “<a href="http://d.hatena.ne.jp/ku-ma-me/20080108/p1">SAT ソルバで数独を解く方法 - まめめも</a>”. </li>
+</ul>
+
+</body>
+
+</html>
