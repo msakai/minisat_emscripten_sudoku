@@ -3,7 +3,7 @@ Sudoku solver in your browser
 
 This project is a demonstration of solving a famous number-placement puzzle [Sudoku (数独)](https://en.wikipedia.org/wiki/Sudoku) using only client-side Javascript, 
 
-* [Demo site](https://dl.dropboxusercontent.com/u/123796/app/minisat_emscripten_sudoku/index.html)
+* [Demo site](http://msakai.github.io/minisat_emscripten_sudoku/demo/)
 
 Design and Implementation
 -------------------------
